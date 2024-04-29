@@ -11,7 +11,7 @@ This project aims to analyze YouTube data using the YouTube Data API and store t
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/your-repository.git](https://github.com/manoj8312/Youtube-Data-Harvesting-And-Warehousing.git
+git clone https://github.com/manoj8312/Youtube-Data-Harvesting-And-Warehousing.git
 ```
 
 2. Install the required dependencies:
