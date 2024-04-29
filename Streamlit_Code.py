@@ -94,11 +94,6 @@ def fetch_channel_data(channel_id):
     # st.write("Fetching data for the new channel ID...")
     with st.spinner("Loading..."):
         channel_details(channel_id)
-        # if channel_data_result is not None:
-        #     # Now you can display or use this data as needed
-        #     st.write("Data fetched and stored successfully.")
-        # else:
-        #     st.write("Failed to fetch data for the provided channel ID.")
 
 if st.button("Submit"):
     if channel_id_exists(channel_id):
@@ -177,10 +172,6 @@ def main_1():
         "10. Which videos have the highest number of comments, and what are their corresponding channel names"
     ])
 
-    # if question.startswith("1."):
-    #     df = execute_query("SELECT title, channel_name FROM videosdatas")
-    #     st.write(df, header=["Video Title", "Channel Name"])
-    #     # st.table(df, header=["Video Title", "Channel Name"], index=False
     if question.startswith("1."):
         df = execute_query("SELECT title AS 'Video Title', channel_name AS 'Channel Name' FROM videosdatas")
         df.columns = ["Video Title", "Channel Name"]
@@ -213,9 +204,6 @@ def main_1():
         df = execute_query("SELECT DISTINCT channel_name FROM videosdatas WHERE YEAR(published_date) = 2022")
         df.columns = ["Channel Name"]
         st.table(df)
-    # elif question.startswith("9."):
-    #     df = execute_query("SELECT channel_name, AVG(duration) AS average_duration FROM videosdatas GROUP BY channel_name")
-    #     st.write(df, header=["Channel Name", "Average Duration"])
 
     elif question.startswith("9."):
         df = execute_query("SELECT channel_name, AVG(duration) AS average_duration FROM videosdatas GROUP BY channel_name")
@@ -234,13 +222,8 @@ def main_1():
 
         st.table(df)
 
-    # elif question.startswith("10."):
-    #     df = execute_query("SELECT video_title, channel_name, COUNT(*) AS number_of_comments FROM commentdatas GROUP BY video_title ORDER BY number_of_comments DESC LIMIT 10")
-    #     st.write(df, header=["Video Title", "Channel Name", "Number of Comments"])
-
     elif question.startswith("10."):
         df = execute_query('select Title as videotitle, Channel_name as channelname,Comments as Comments from videosdatas where Comments is not null order by Comments desc')
-        # 'select Title as videotitle, Channel_name as channelname,Comments as Comments from videosdatas where Comments is not null order by Comments desc'
         df.columns = ["Video ID", "Channel Name", "Number of Comments"]
         st.table(df)
 
