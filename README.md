@@ -5,18 +5,19 @@ This project aims to analyze YouTube data using the YouTube Data API and store t
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 
 ## Installation
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/your-repository.git
+git clone https://github.com/your-username/your-repository.git](https://github.com/manoj8312/Youtube-Data-Harvesting-And-Warehousing.git
 ```
 
 2. Install the required dependencies:
+   ```bash
    pip install -r requirements.txt
+   ```
 
 3. Set up MySQL database:
   Ensure MySQL is installed on your system.
@@ -26,7 +27,9 @@ git clone https://github.com/your-username/your-repository.git
 ## Usage
 
 1. Run the Streamlit app:
-   streamlit run app.py
+   ```bash
+   streamlit run Streamlit_Code.py
+   ```
    
 2. Enter the channel ID in the text input field and click "Submit" to fetch and store channel data.
    
