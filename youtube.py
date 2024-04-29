@@ -15,7 +15,6 @@ youtube = googleapiclient.discovery.build(
 
 def channel_data(channel_ids):
     list_data=[]
-    # for i in channel_ids:
     request = youtube.channels().list(
     part="snippet,contentDetails,statistics",
     id=channel_ids)
@@ -59,7 +58,6 @@ def get_video_ids(channel_ids):
 
         if next_page_token is None:
             break 
-    # video_ids_1=pd.DataFrame(video_ids)
     return video_ids
 
 
@@ -93,8 +91,6 @@ def video_info(Video_ids):
 
     video_data_1=pd.DataFrame(video_data)
     return video_data_1
-# b=video_info(e)
-# video_details_df=pd.DataFrame(b)
 
 # Comment info
 def comment_info(video_ids_df):
@@ -120,7 +116,6 @@ def comment_info(video_ids_df):
     Comment_data_1=pd.DataFrame(Comment_data)
     return Comment_data_1
 
-#playlists details
 
 def playlist_details(channel_ids):
 
@@ -335,9 +330,7 @@ def video_table(video_details_df):
         else:
             # Parse duration
             formatted_duration = parse_duration(row['Duration'])
-            # formatted_duration_df = pd.DataFrame({'Duration': [formatted_duration]})
-            # # Extracting the duration value from the Series
-            # duration_value = formatted_duration_df['Duration'].iloc[0]
+
 
             # Insert new data into the table
             tags_str = ', '.join(row['Tags']) if isinstance(row['Tags'], list) else row['Tags']
@@ -359,70 +352,6 @@ def video_table(video_details_df):
     mydb.commit()
     mycursor.close()
     mydb.close()
-# def video_table(video_details_df):
-#     mydb = mysql.connector.connect(
-#         host="localhost",
-#         user="root",
-#         password="",
-#         database='youtubedata'
-#     )
-
-#     mycursor = mydb.cursor(buffered=True)
-
-#     # Check if the table exists
-#     mycursor.execute("SHOW TABLES LIKE 'videosdatas'")
-#     table_exists = mycursor.fetchone()
-
-#     if not table_exists:
-#         # Create the table if it does not exist
-#         create_query = '''CREATE TABLE IF NOT EXISTS videosdatas (
-#                             Video_id VARCHAR(50) PRIMARY KEY,
-#                             Channel_name VARCHAR(255),
-#                             Channel_id VARCHAR(50),
-#                             Title VARCHAR(255),
-#                             Tags TEXT,
-#                             Thumbnails TEXT,
-#                             Description TEXT,
-#                             Published_date DATETIME,
-#                             Duration TIME, -- Changed datatype to TIME
-#                             Views INT,
-#                             Likes INT,
-#                             Comments INT,
-#                             Favorite_count INT,
-#                             Definition VARCHAR(50),
-#                             Caption_status BOOLEAN
-#                         )'''
-#         mycursor.execute(create_query)
-#         mydb.commit()
-
-#     # Iterate over DataFrame rows and insert data into MySQL table
-#     for index, row in video_details_df.iterrows():
-#         # Check if the video data already exists in the table based on the video ID
-#         mycursor.execute("SELECT * FROM videosdatas WHERE Video_id = %s", (row['Video_id'],))
-#         existing_data = mycursor.fetchone()
-
-#         if existing_data:
-#             print(f"Video data with ID {row['Video_id']} already exists. Skipping insertion.")
-#         else:
-#             # Insert new data into the table
-#             tags_str = ', '.join(row['Tags']) if isinstance(row['Tags'], list) else row['Tags']
-#             insert_query = """INSERT INTO videosdatas (
-#                                 Channel_name, Channel_id, Video_id, Title, Tags, Thumbnails,
-#                                 Description, Published_date, Duration, Views, Likes, Comments,
-#                                 Favorite_count, Definition, Caption_status
-#                             ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-#             values = (
-#                 row['Channel_name'], row['Channel_id'], row['Video_id'], row['Title'],
-#                 tags_str, row['Thumbnails'], row['Description'], row['Published_date'],
-#                 row['Duration'], row['Views'], row['Likes'], row['Comments'],
-#                 row['Favorite_count'], row['Definition'], row['Caption_status']
-#             )
-#             mycursor.execute(insert_query, values)
-#             print(f"Inserted new video data with ID {row['Video_id']}.")
-
-#     mydb.commit()
-#     mycursor.close()
-#     mydb.close()
 
     print('video_details_df data insertion done.')
 
@@ -489,7 +418,6 @@ def channel_details(channel_id):
     playlistdata_table(Playlist_details_df)
 
     vi_ids=get_video_ids(channel_ids)
-    # Video_ids_df=pd.DataFrame(vi_ids)
 
     vi_details=video_info(vi_ids)
     video_details_df = vi_details.copy()
@@ -499,5 +427,3 @@ def channel_details(channel_id):
     comment_details_df = com_details.copy()
     commentdata_table(comment_details_df)
 
-# channel_id = 'UCTCMjShTpZg96cXloCO9q1w'
-# channel_details(channel_id)
